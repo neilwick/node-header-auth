@@ -1,1 +1,2 @@
-# node-header-auth
+# express-first
+A first node/express sample
