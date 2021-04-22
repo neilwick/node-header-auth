@@ -13,4 +13,13 @@ module.exports = class {
 
 		return { user: null };
 	}
+
+	static async addUser(user, hash) {
+		let connection = await db.getConnection();
+		const rows = await connection.query(
+			'INSERT INTO `user` (`User`, `Hash`) VALUES (?, ?)',
+			[user, hash]
+		);
+		return true;
+	}
 };

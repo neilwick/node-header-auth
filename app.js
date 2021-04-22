@@ -22,13 +22,23 @@ app.get('/login', async (req, res) => {
 	res.json(req.auth);
 });
 
-app.get('/secrets', (req,res) => {
+app.all('/createuser', (req,res) => {
 	if(req.auth.isAuth) {
+
+		let newUser = req.body.newUser;
+		let newPass = req.body.newPass;
+
+		const hash = crypto.createHash("sha256").update(newPass).digest("hex");
+
+		User.addUser(newUser, hash);
+
 		res.json({
-			allowed: "allowed"
+			status: "Success"
 		});
 	} else {
-		res.sendStatus(403);
+		res.json({
+			status: "Failed"
+		});
 	}
 });
 
